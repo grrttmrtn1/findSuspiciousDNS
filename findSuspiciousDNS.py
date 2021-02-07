@@ -1,5 +1,7 @@
 import piholeSqlite
 import anomaliCheck
+import logging
+import logging.handlers
 
 def normalizePiholeDomains(sites):
     fullsites =[]
@@ -23,7 +25,12 @@ anomali = anomaliCheck.anomaliCheck('','' ,'', '')
 domains = anomali.export_observables("")
 
 parsedDomains = anomali.parseDomains(domains)
+my_logger = logging.getLogger('findSuspiciousDomains')
+my_logger.setLevel(logging.WARN)
+handler = logging.handlers.SysLogHandler(address = ('10.1.3.4', 516))
+my_logger.addHandler(handler)
 
 for site in fullsites:
      if site in parsedDomains:
             print(site)
+            my_logger.warn('Site found in DNS lookups matches a domain in Anomali - ' + site)
