@@ -27,7 +27,8 @@ domains = anomali.export_observables("")
 parsedDomains = anomali.parseDomains(domains)
 my_logger = logging.getLogger('findSuspiciousDomains')
 my_logger.setLevel(logging.WARN)
-handler = logging.handlers.SysLogHandler(address = ('10.1.3.4', 516))
+#address = ('host', port)
+handler = logging.handlers.SysLogHandler(address = ('', ))
 my_logger.addHandler(handler)
 
 for site in fullsites:
